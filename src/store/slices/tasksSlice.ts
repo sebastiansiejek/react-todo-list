@@ -9,7 +9,7 @@ export const initialState: ITasksState = {
   tasks: []
 }
 
-const usersSlice = createSlice({
+const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
@@ -21,5 +21,5 @@ const usersSlice = createSlice({
 
 export const getTasks = (state: ITasksState) => state.tasks
 
-export const { addTask } = usersSlice.actions
-export default usersSlice.reducer
+export const { addTask } = tasksSlice.actions
+export default tasksSlice.reducer

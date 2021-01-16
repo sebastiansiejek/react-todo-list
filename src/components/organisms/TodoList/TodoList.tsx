@@ -1,3 +1,4 @@
+import AddTask from 'components/smarts/AddTask'
 import { ITasks } from 'types/ITasks/Itasks'
 
 interface IProps {
@@ -7,15 +8,22 @@ interface IProps {
 const TodoList: React.FC<IProps> = ({ tasks }) => {
   if (tasks.length) {
     return (
-      <ul>
-        {tasks.map(task => (
-          <li key={task.id}>{task.task}</li>
-        ))}
-      </ul>
+      <>
+        <AddTask />
+        <ul>
+          {tasks.map(task => (
+            <li key={task.id}>{task.task}</li>
+          ))}
+        </ul>
+      </>
     )
   }
 
-  return <></>
+  return (
+    <>
+      <AddTask />
+    </>
+  )
 }
 
 export default TodoList
