@@ -5,15 +5,17 @@ interface IProps {
 }
 
 const TodoList: React.FC<IProps> = ({ tasks }) => {
-  return (
-    tasks && (
+  if (tasks.length) {
+    return (
       <ul>
         {tasks.map(task => (
           <li key={task.id}>{task.task}</li>
         ))}
       </ul>
     )
-  )
+  }
+
+  return <></>
 }
 
 export default TodoList
