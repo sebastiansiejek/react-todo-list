@@ -9,10 +9,11 @@ type Inputs = {
 
 const FormStyled = styled.form`
   display: flex;
-`
 
-const InputStyled = styled.input`
-  padding: 0.7rem;
+  input {
+    padding: 0.7rem;
+    flex: 1;
+  }
 `
 
 const AddTaskInput: React.FC = () => {
@@ -33,7 +34,7 @@ const AddTaskInput: React.FC = () => {
         reset()
       })}
     >
-      <InputStyled name="task" autoComplete="off" required ref={register} />
+      <input name="task" autoComplete="off" required ref={register} />
       <button type="submit">Add</button>
     </FormStyled>
   )
