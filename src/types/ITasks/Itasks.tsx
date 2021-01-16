@@ -5,4 +5,4 @@ export interface ITask {
   is_completed: boolean
 }
 
-export type ITasks = [ITask]
+export type ITasks = Array<ITask>
