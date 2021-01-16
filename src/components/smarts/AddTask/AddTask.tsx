@@ -28,7 +28,7 @@ const AddTaskInput: React.FC = () => {
             task: e.task,
             candidate: '',
             is_completed: false,
-            id: ''
+            id: e.task
           })
         )
         reset()

@@ -1,6 +1,8 @@
 import AddTask from 'components/smarts/AddTask'
 import styled from 'styled-components'
 import { ITasks } from 'types/ITasks/Itasks'
+import { removeTask } from 'store/slices/tasksSlice'
+import { useDispatch } from 'react-redux'
 
 interface IProps {
   tasks: ITasks
@@ -19,22 +21,36 @@ const TodoListStyled = styled.div`
 
 const ListItem = styled.li`
   list-style: none;
-  padding: 0.6rem;
-  border: 0.1rem solid lightgray;
+  display: flex;
+
+  input {
+    padding: 0.6rem;
+    border: 0.1rem solid lightgray;
+    flex: 1;
+  }
 
   &:not(:last-child) {
-    border-bottom: none;
+    input {
+      border-bottom: none;
+    }
   }
 `
 
 const TodoList: React.FC<IProps> = ({ tasks }) => {
+  const dispatch = useDispatch()
+
   if (tasks.length) {
     return (
       <TodoListStyled>
         <AddTask />
         <ul>
           {tasks.map(task => (
-            <ListItem key={task.id}>{task.task}</ListItem>
+            <ListItem key={task.id}>
+              <input readOnly value={task.task} />
+              <button onClick={() => dispatch(removeTask(task.id))}>
+                Remove
+              </button>
+            </ListItem>
           ))}
         </ul>
       </TodoListStyled>
