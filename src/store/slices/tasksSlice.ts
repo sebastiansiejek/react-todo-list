@@ -5,7 +5,9 @@ interface ITasksState {
   tasks: ITasks
 }
 
-export const initialState: ITasksState = { tasks: [] }
+export const initialState: ITasksState = {
+  tasks: []
+}
 
 const usersSlice = createSlice({
   name: 'tasks',
@@ -16,6 +18,8 @@ const usersSlice = createSlice({
     }
   }
 })
+
+export const getTasks = (state: ITasksState) => state.tasks
 
 export const { addTask } = usersSlice.actions
 export default usersSlice.reducer
