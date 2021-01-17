@@ -1,3 +1,4 @@
+import { ITasks } from 'types/ITasks/Itasks'
 import { axiosInstance } from './config'
 
 class ApiMethods {
@@ -5,12 +6,12 @@ class ApiMethods {
     return await axiosInstance.get('')
   }
 
-  static async addTask(task: string, isCompleted: 0 | 1) {
+  static async addTask(task: string, isCompleted: 0 | 1, id?: string) {
     const formData = new FormData()
     formData.append('task', task)
     formData.append('is_completed', `${isCompleted}`)
 
-    return await axiosInstance.post('', formData)
+    return await axiosInstance.post(`${id ? id : ''}`, formData)
   }
 
   static async removeTask(id: string) {
