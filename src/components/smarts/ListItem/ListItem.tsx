@@ -1,9 +1,11 @@
 import ApiMethods from 'services/api/ApiMethods'
+import Loader from 'components/atoms/Loader'
 import styled from 'styled-components'
 import { ITask } from 'types/ITasks/Itasks'
 import { debounce } from 'lodash'
 import { removeTask, updateTask } from 'store/slices/tasksSlice'
 import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 const ListItemStyled = styled.li`
   list-style: none;
@@ -32,6 +34,7 @@ interface IProps {
 const ListItem: React.FC<IProps> = ({ task }) => {
   const dispatch = useDispatch()
   const { id, is_completed } = task
+  const [isRemovingTask, setisRemovingTask] = useState(false)
 
   return (
     <ListItemStyled>
@@ -58,15 +61,23 @@ const ListItem: React.FC<IProps> = ({ task }) => {
         }, 300)}
         defaultValue={task.task ? task.task : ''}
       />
-      <button
-        onClick={() =>
-          ApiMethods.removeTask(id)
-            .then(response => dispatch(removeTask(response.data.data.id)))
-            .catch(error => console.warn(error))
-        }
-      >
-        Remove
-      </button>
+      {isRemovingTask ? (
+        <Loader />
+      ) : (
+        <button
+          onClick={() => {
+            setisRemovingTask(true)
+            ApiMethods.removeTask(id)
+              .then(response => {
+                dispatch(removeTask(response.data.data.id))
+                setisRemovingTask(false)
+              })
+              .catch(error => console.warn(error))
+          }}
+        >
+          Remove
+        </button>
+      )}
     </ListItemStyled>
   )
 }
