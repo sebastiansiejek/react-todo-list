@@ -1,7 +1,8 @@
-import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { addTask } from 'store/slices/tasksSlice'
+import ApiMethods from 'services/api/ApiMethods'
 import styled from 'styled-components'
+import { addTask } from 'store/slices/tasksSlice'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
 
 type Inputs = {
   task: string
@@ -23,16 +24,12 @@ const AddTaskInput: React.FC = () => {
   return (
     <FormStyled
       onSubmit={handleSubmit(e => {
-        //TODO: set correct id
-        dispatch(
-          addTask({
-            task: e.task,
-            candidate: '',
-            is_completed: false,
-            id: e.task
+        ApiMethods.addTask(e.task, 0)
+          .then(response => {
+            dispatch(addTask(response.data.data[0]))
+            reset()
           })
-        )
-        reset()
+          .catch(error => console.warn(error))
       })}
     >
       <input name="task" autoComplete="off" required ref={register} />

@@ -1,3 +1,4 @@
+import ApiMethods from 'services/api/ApiMethods'
 import styled from 'styled-components'
 import { ITask } from 'types/ITasks/Itasks'
 import { removeTask, setComplete } from 'store/slices/tasksSlice'
@@ -40,7 +41,17 @@ const ListItem: React.FC<IProps> = ({ task }) => {
         }
       />
       <input type="text" readOnly value={task.task} />
-      <button onClick={() => dispatch(removeTask(task.id))}>Remove</button>
+      <button
+        onClick={() =>
+          ApiMethods.removeTask(task.id)
+            .then(response => {
+              dispatch(removeTask(response.data.data.id))
+            })
+            .catch(error => console.warn(error))
+        }
+      >
+        Remove
+      </button>
     </ListItemStyled>
   )
 }
