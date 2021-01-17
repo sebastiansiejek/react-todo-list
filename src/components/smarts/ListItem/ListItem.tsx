@@ -47,7 +47,7 @@ const ListItem: React.FC<IProps> = ({ task }) => {
             .then(response => {
               dispatch(removeTask(response.data.data.id))
             })
-            .catch(error => console.log(error))
+            .catch(error => console.warn(error))
         }
       >
         Remove
