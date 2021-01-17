@@ -9,9 +9,7 @@ class ApiMethods {
     formData.append('task', task)
     formData.append('is_completed', `${isCompleted}`)
 
-    return await axiosInstance.post('', {
-      data: formData
-    })
+    return await axiosInstance.post('', formData)
   }
 }
 
