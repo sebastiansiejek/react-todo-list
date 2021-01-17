@@ -16,17 +16,19 @@ const tasksSlice = createSlice({
     addTask(state: ITasksState, action: PayloadAction<ITask>) {
       state.tasks.push(action.payload)
     },
+
     removeTask(state: ITasksState, action: PayloadAction<string>) {
       state.tasks = state.tasks.filter(task => task.id !== action.payload)
     },
-    setComplete(
-      state: ITasksState,
-      action: PayloadAction<{ id: string; is_completed: boolean }>
-    ) {
-      const { id, is_completed } = action.payload
-      const task = state.tasks.find(task => task.id === id)
-      if (task) task.is_completed = is_completed
+
+    updateTask(state: ITasksState, action: PayloadAction<{ task: ITask }>) {
+      const index = state.tasks.findIndex(
+        task => task.id === action.payload.task.id
+      )
+
+      if (index) state.tasks[index] = action.payload.task
     },
+
     setTasks(state: ITasksState, action: PayloadAction<ITasks>) {
       state.tasks = action.payload
     }
@@ -35,5 +37,5 @@ const tasksSlice = createSlice({
 
 export const getTasks = (state: ITasksState) => state.tasks
 
-export const { addTask, removeTask, setComplete, setTasks } = tasksSlice.actions
+export const { addTask, removeTask, updateTask, setTasks } = tasksSlice.actions
 export default tasksSlice.reducer

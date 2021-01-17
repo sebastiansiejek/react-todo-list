@@ -48,7 +48,7 @@ const TodoList: React.FC<IProps> = ({ tasks }) => {
         <ul>
           {isCompletedVisible &&
             tasks
-              .filter(task => task.is_completed === true)
+              .filter(task => task.is_completed)
               .map(task => <ListItem task={task} key={task.id}></ListItem>)}
           {!isCompletedVisible &&
             tasks.map(task => <ListItem task={task} key={task.id}></ListItem>)}

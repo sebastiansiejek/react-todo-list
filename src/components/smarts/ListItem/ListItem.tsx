@@ -1,7 +1,8 @@
 import ApiMethods from 'services/api/ApiMethods'
 import styled from 'styled-components'
 import { ITask } from 'types/ITasks/Itasks'
-import { removeTask, setComplete } from 'store/slices/tasksSlice'
+import { debounce } from 'lodash'
+import { removeTask, updateTask } from 'store/slices/tasksSlice'
 import { useDispatch } from 'react-redux'
 
 const ListItemStyled = styled.li`
@@ -30,29 +31,37 @@ interface IProps {
 
 const ListItem: React.FC<IProps> = ({ task }) => {
   const dispatch = useDispatch()
+  const { id, is_completed } = task
 
   return (
     <ListItemStyled>
       <input
         type="checkbox"
-        defaultChecked={task.is_completed}
+        defaultChecked={is_completed ? true : false}
         onChange={e => {
-          ApiMethods.addTask(task.task, e.target.checked ? 1 : 0, task.id)
+          const isChecked = e.target.checked ? 1 : 0
+          ApiMethods.addTask(task.task, isChecked, id)
             .then(() => {
-              dispatch(
-                setComplete({ id: task.id, is_completed: e.target.checked })
-              )
+              const updatedTask = { ...task }
+              updatedTask.is_completed = isChecked
+              dispatch(updateTask({ task: updatedTask }))
             })
             .catch(error => console.warn(error))
         }}
       />
-      <input type="text" readOnly value={task.task} />
+      <input
+        type="text"
+        onChange={debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+          ApiMethods.addTask(e.target.value, task.is_completed ? 1 : 0, id)
+            .then(() => dispatch(updateTask({ task })))
+            .catch(error => console.warn(error))
+        }, 300)}
+        defaultValue={task.task ? task.task : ''}
+      />
       <button
         onClick={() =>
-          ApiMethods.removeTask(task.id)
-            .then(response => {
-              dispatch(removeTask(response.data.data.id))
-            })
+          ApiMethods.removeTask(id)
+            .then(response => dispatch(removeTask(response.data.data.id)))
             .catch(error => console.warn(error))
         }
       >
