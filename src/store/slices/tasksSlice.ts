@@ -26,11 +26,14 @@ const tasksSlice = createSlice({
       const { id, is_completed } = action.payload
       const task = state.tasks.find(task => task.id === id)
       if (task) task.is_completed = is_completed
+    },
+    setTasks(state: ITasksState, action: PayloadAction<ITasks>) {
+      state.tasks = action.payload
     }
   }
 })
 
 export const getTasks = (state: ITasksState) => state.tasks
 
-export const { addTask, removeTask, setComplete } = tasksSlice.actions
+export const { addTask, removeTask, setComplete, setTasks } = tasksSlice.actions
 export default tasksSlice.reducer
