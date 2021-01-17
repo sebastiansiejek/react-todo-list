@@ -18,7 +18,7 @@ const TodoListContainer: React.FC<IProps> = ({ tasks }) => {
     ApiMethods.getTasks()
       .then(response => dispatch(setTasks(response.data.data)))
       .catch(err => console.warn(err.response.data))
-  })
+  }, [])
 
   return <TodoList tasks={tasks ? tasks : []} />
 }
