@@ -1,4 +1,3 @@
-import { ITasks } from 'types/ITasks/Itasks'
 import { axiosInstance } from './config'
 
 class ApiMethods {
