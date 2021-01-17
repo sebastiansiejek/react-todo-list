@@ -1,3 +1,6 @@
+# Configuration
+* Set `REACT_APP_API_BASE_URL=https://sample.com/` variable with your base api url in .env
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
