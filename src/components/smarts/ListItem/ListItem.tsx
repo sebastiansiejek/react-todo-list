@@ -36,9 +36,15 @@ const ListItem: React.FC<IProps> = ({ task }) => {
       <input
         type="checkbox"
         defaultChecked={task.is_completed}
-        onChange={e =>
-          dispatch(setComplete({ id: task.id, is_completed: e.target.checked }))
-        }
+        onChange={e => {
+          ApiMethods.addTask(task.task, e.target.checked ? 1 : 0, task.id)
+            .then(() => {
+              dispatch(
+                setComplete({ id: task.id, is_completed: e.target.checked })
+              )
+            })
+            .catch(error => console.warn(error))
+        }}
       />
       <input type="text" readOnly value={task.task} />
       <button
