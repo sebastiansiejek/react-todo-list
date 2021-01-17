@@ -23,6 +23,7 @@ const AddTaskInput: React.FC = () => {
   return (
     <FormStyled
       onSubmit={handleSubmit(e => {
+        //TODO: set correct id
         dispatch(
           addTask({
             task: e.task,

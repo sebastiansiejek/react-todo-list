@@ -19,7 +19,7 @@ const tasksSlice = createSlice({
     removeTask(state: ITasksState, action: PayloadAction<string>) {
       state.tasks = state.tasks.filter(task => task.id !== action.payload)
     },
-    toggleComplete(
+    setComplete(
       state: ITasksState,
       action: PayloadAction<{ id: string; is_completed: boolean }>
     ) {
@@ -32,5 +32,5 @@ const tasksSlice = createSlice({
 
 export const getTasks = (state: ITasksState) => state.tasks
 
-export const { addTask, removeTask, toggleComplete } = tasksSlice.actions
+export const { addTask, removeTask, setComplete } = tasksSlice.actions
 export default tasksSlice.reducer

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { ITask } from 'types/ITasks/Itasks'
-import { removeTask, toggleComplete } from 'store/slices/tasksSlice'
+import { removeTask, setComplete } from 'store/slices/tasksSlice'
 import { useDispatch } from 'react-redux'
 
 const ListItemStyled = styled.li`
@@ -35,9 +35,7 @@ const ListItem: React.FC<IProps> = ({ task }) => {
       <input
         type="checkbox"
         onChange={e =>
-          dispatch(
-            toggleComplete({ id: task.id, is_completed: e.target.checked })
-          )
+          dispatch(setComplete({ id: task.id, is_completed: e.target.checked }))
         }
       />
       <input type="text" readOnly value={task.task} />
