@@ -34,6 +34,7 @@ const ListItem: React.FC<IProps> = ({ task }) => {
     <ListItemStyled>
       <input
         type="checkbox"
+        defaultChecked={task.is_completed}
         onChange={e =>
           dispatch(setComplete({ id: task.id, is_completed: e.target.checked }))
         }
