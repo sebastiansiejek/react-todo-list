@@ -7,7 +7,7 @@ import { setTasks } from 'store/slices/tasksSlice'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
-interface IProps {
+export interface IProps {
   tasks?: ITasks
 }
 
